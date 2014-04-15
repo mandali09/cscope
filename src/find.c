@@ -1201,7 +1201,9 @@ getposting(void)
 static void
 putpostingref(POSTING *p, char *pat)
 {
-	static char	function[PATLEN + 1];	/* function name */
+	// initialize function to "unknown" so that the first line of temp1
+	// is properly formed if symbol matches a header file entry first time
+	static char function[PATLEN + 1] = "unknown";/* function name */
 
 	if (p->fcnoffset == 0) {
 		if (p->type == FCNDEF) { /* need to find the function name */
