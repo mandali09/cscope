@@ -139,7 +139,8 @@ fi
 ) | \
     egrep -i '\.([chly](xx|pp)*|cc|hh)$' | \
     sed -e '/\/CVS\//d' -e '/\/RCS\//d' -e 's/^\.\///' | \
-    sort > $LIST_FILE
+    sort | \
+    sed -e '/[ \t]/s/^.*$/\"&\"/' > $LIST_FILE
 
 if [ "X$VERBOSE" != "X" ]
 then
