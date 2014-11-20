@@ -168,7 +168,7 @@ myfork(void)
 static int
 join(pid_t p) 
 {
-	int	status;  
+	int	status = -1;  
 	pid_t	w;
 
 	/* wait for the correct child to exit */
