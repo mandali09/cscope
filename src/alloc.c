@@ -63,7 +63,7 @@ my_strdup(char *s)
 void *
 mymalloc(size_t size)
 {
-    return(alloctest(malloc((unsigned) size)));
+    return(alloctest(malloc(size)));
 }
 
 
@@ -71,7 +71,7 @@ mymalloc(size_t size)
 void *
 mycalloc(size_t nelem, size_t size)
 {
-    return(alloctest(calloc((unsigned) nelem, (unsigned) size)));
+    return(alloctest(calloc(nelem, size)));
 }
 
 
@@ -79,7 +79,7 @@ mycalloc(size_t nelem, size_t size)
 void *
 myrealloc(void *p, size_t size)
 {
-    return(alloctest(realloc(p, (unsigned) size)));
+    return(alloctest(realloc(p, size)));
 }
 
 

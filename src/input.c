@@ -54,12 +54,12 @@ static	jmp_buf	env;		/* setjmp/longjmp buffer */
 static	int	prevchar;	/* previous, ungotten character */
 
 /* Internal prototypes: */
-static RETSIGTYPE catchint(int sig);
+static void catchint(int sig);
 
 /* catch the interrupt signal */
 
 /*ARGSUSED*/
-static RETSIGTYPE
+static void
 catchint(int sig)
 {
  	(void) sig;		/* 'use' it, to avoid a warning */
@@ -79,7 +79,7 @@ myungetch(int c)
 int
 mygetch(void)
 {
-    sighandler_t savesig; /* old value of signal */
+    sighandler_t savesig = 0; /* old value of signal */
     int c;
 
     /* change an interrupt signal to a break key character */
@@ -125,7 +125,7 @@ mygetline(char p[], char s[], unsigned size, int firstchar, BOOL iscaseless)
      * At the end of the function, we'll pop off any remaining characters
      * onto the end of 's'
      */
-    sright = calloc(sizeof(char), size );
+    sright = calloc(size, sizeof(*sright));
 
     strcpy ( s, p);
     i += strlen(p);

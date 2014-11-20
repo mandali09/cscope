@@ -81,17 +81,8 @@ char	*memset();
 #include "invlib.h"	/* inverted index library */
 #include "library.h"	/* library function return values */
 
-/* Fallback, in case 'configure' failed to do its part of the job */
-#ifndef RETSIGTYPE
-#if SVR2 || BSD && !sun
-#define RETSIGTYPE int
-#else
-#define RETSIGTYPE void
-#endif
-#endif /* RETSIGTYPE */
-
 #ifndef HAVE_SIGHANDLER_T
-typedef RETSIGTYPE (*sighandler_t)(int);
+typedef void (*sighandler_t)(int);
 #endif
 
 #if HAVE_STDARG_H

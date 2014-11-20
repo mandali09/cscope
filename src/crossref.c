@@ -48,18 +48,21 @@
 static char const rcsid[] = "$Id$";
 
 
-/* convert long to a string */
-#define	ltobase(value)	n = value; \
-			s = buf + (sizeof(buf) - 1); \
-			*s = '\0'; \
-			digits = 1; \
-			while (n >= BASE) { \
-				++digits; \
-				i = n; \
-				n /= BASE; \
-				*--s = i - n * BASE + '!'; \
-			} \
-			*--s = n + '!';
+/* convert long to a string in base BASE notation */
+#define	ltobase(value)                     \
+do {                                       \
+	n = (value);                       \
+	s = buf + (sizeof(buf) - 1);       \
+	*s = '\0';                         \
+	digits = 1;                        \
+	while (n >= BASE) {                \
+		++digits;                  \
+		i = n;                     \
+		n /= BASE;                 \
+		*--s = i - n * BASE + '!'; \
+	}                                  \
+	*--s = n + '!';                    \
+} while (0)
 
 #define	SYMBOLINC	20	/* symbol list size increment */
 
@@ -121,7 +124,7 @@ crossref(char *srcfile)
     fcnoffset = macrooffset = 0;
     symbols = 0;
     if (symbol == NULL) {
-	symbol = mymalloc(msymbols * sizeof(struct symbol));
+	symbol = mymalloc(msymbols * sizeof(*symbol));
     }
     for (;;) {
 		
@@ -200,7 +203,7 @@ savesymbol(int token, int num)
     /* make sure there is room for the symbol */
     if (symbols == msymbols) {
 	msymbols += SYMBOLINC;
-	symbol = myrealloc(symbol, msymbols * sizeof(struct symbol));
+	symbol = myrealloc(symbol, msymbols * sizeof(*symbol));
     }
     /* save the symbol */
     symbol[symbols].type = token;

@@ -117,7 +117,7 @@ static	struct	{		/* text of input fields */
 };
 
 /* Internal prototypes: */
-static	RETSIGTYPE	jumpback(int sig);
+static	void	jumpback(int sig);
 
 /* initialize display parameters */
 
@@ -138,7 +138,7 @@ dispinit(void)
 		mdisprefs = strlen(dispchars);
 
 	/* allocate the displayed line array */
-	displine = mymalloc(mdisprefs * sizeof(int));
+	displine = mymalloc(mdisprefs * sizeof(*displine));
 }
 
 /* display a page of the references */
@@ -398,7 +398,7 @@ atchange(void)
 /* search for the symbol or text pattern */
 
 /*ARGSUSED*/
-static RETSIGTYPE
+static void
 jumpback(int sig)
 {
 	/* HBB NEW 20031008: try whether reinstating signal handler
@@ -564,10 +564,11 @@ myperror(char *text)
 	char	msg[MSGLEN + 1];	/* message */
 	char	*s;
 
-	s = "Unknown error";
 #ifdef HAVE_STRERROR
         s = strerror(errno);
 #else
+	s = "Unknown error";
+
 	if (errno < sys_nerr) {
 		s = sys_errlist[errno];
 	}

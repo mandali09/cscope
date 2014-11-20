@@ -95,7 +95,7 @@ struct	keystruct keyword[] = {
 	{"signed",	' ',	NULL},
 	{"volatile",	' ',	NULL},
 };
-#define KEYWORDS	(sizeof(keyword) / sizeof(struct keystruct))
+#define KEYWORDS	(sizeof(keyword) / sizeof(keyword[0]))
 
 #define HASHMOD	(KEYWORDS * 2 + 1)
 

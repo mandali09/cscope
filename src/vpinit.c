@@ -105,7 +105,7 @@ vpinit(char *current_dir)
 		}
 	}
 	/* create the source directory list */
-	vpdirs = mymalloc(vpndirs * sizeof(char *));
+	vpdirs = mymalloc(vpndirs * sizeof(*vpdirs));
 
 	/* don't change VPATH in the environment */
 	vpath = my_strdup(vpath);
@@ -124,7 +124,7 @@ vpinit(char *current_dir)
 	}
 	/* convert the view path nodes to directories */
 	for (i = 0; i < vpndirs; ++i) {
-		s = mymalloc((strlen(vpdirs[i]) + strlen(suffix) + 1));
+		s = mymalloc(strlen(vpdirs[i]) + strlen(suffix) + 1);
 		(void) strcpy(s, vpdirs[i]);
 		(void) strcat(s, suffix);
 		vpdirs[i] = s;

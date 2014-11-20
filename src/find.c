@@ -875,7 +875,7 @@ putsource(int seemore, FILE *output)
 			retreat = YES;
 			/* read the previous block */
 			(void) dbseek((blocknumber - 1) * BUFSIZ);
-			cp = &block[BUFSIZ - 1];
+			cp = block + (BUFSIZ - 1);
 		}
 	}
 	blockp = cp;
@@ -1209,8 +1209,7 @@ putpostingref(POSTING *p, char *pat)
 		if (p->type == FCNDEF) { /* need to find the function name */
 			if (dbseek(p->lineoffset) != -1) {
 				scanpast(FCNDEF);
-				fetch_string_from_dbase(function,
-							sizeof(function));
+				fetch_string_from_dbase(function, sizeof(function));
 			}
 		}
 		else if (p->type != FCNCALL) {
