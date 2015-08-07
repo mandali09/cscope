@@ -796,10 +796,13 @@ cscope: cannot read source file name from file %s\n",
 	    case '9':	/* samuel only */
 		field = *buf - '0';
 		strcpy(Pattern, buf + 1);
-		search();
-		printf("cscope: %d lines\n", totallines);
-		while ((c = getc(refsfound)) != EOF) {
-		    putchar(c);
+		if (search() == NO) {
+			printf("Unable to search database\n");
+		} else {
+			printf("cscope: %d lines\n", totallines);
+			while ((c = getc(refsfound)) != EOF) {
+			    putchar(c);
+			}
 		}
 		break;
 
